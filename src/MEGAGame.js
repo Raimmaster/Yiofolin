@@ -7,11 +7,11 @@ var MEGAGame = (function(){
  
  var Ivis;
  //var cursors;
- 
- MEGAGame.prototype.preload = function() {
+
+MEGAGame.prototype.preload = function() {
 		this.game.load.image('backg', 'assets/FONDO.png');
-		this.game.load.image('Ivis','assets/rollar.png');
-	};
+		this.game.load.image('Ivis','assets/rollar_new.png');
+};
 
  MEGAGame.prototype.init = function() {
 		this.game.stage.backgroundColor = '#9bt3e1';
@@ -30,10 +30,10 @@ var MEGAGame = (function(){
 	};
  
  MEGAGame.prototype.moveBackground = function(background){
-	 	   if (background.y < -590) {
-	        background.y = 600;
+		if (background.y < -590) {
+	       	background.y = 600;
 	        background.y -= 10;
-	      } else{
+		}else{
 	        background.y -=10;
 	    }
 	};
@@ -44,11 +44,32 @@ var MEGAGame = (function(){
 	 	this.moveBackground(this.background1);
 	  	this.moveBackground(this.background2);
 
-	  	if (cursors.left.isDown) {Ivis.body.rotateLeft(100);}   //ship movement
-	    else if (cursors.right.isDown){Ivis.body.rotateRight(100);}
-	    else {Ivis.body.setZeroRotation();}
-	    if (cursors.up.isDown){Ivis.body.thrust(400);}
-	    else if (cursors.down.isDown){Ivis.body.reverse(400);}
+	  	if (cursors.left.isDown)
+	  	{
+	  		Ivis.body.rotateLeft(100);	  		
+	  	}   //ship movement
+	    else if (cursors.right.isDown)
+	    {	
+	    	Ivis.body.rotateRight(100);
+	    }
+	    else 
+	    {
+	    	Ivis.body.setZeroRotation();
+	    }
+	    
+	    if (cursors.up.isDown)
+	    {
+			Ivis.body.thrust(400);
+		}
+	    else if (cursors.down.isDown)
+		{
+			Ivis.body.reverse(400);
+		}
+
+		console.log("X: " +  Ivis.x + " Y: " + Ivis.y);
+
+		if(Ivis.y > 400)
+			Ivis.body.y = 75;
 	};
 
 	return MEGAGame;
