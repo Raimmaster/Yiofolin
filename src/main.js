@@ -1,13 +1,33 @@
-window.onload = function() {
+var GAME_WIDTH = 800;
+var GAME_HEIGHT = 600;
 
-        var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create });
+var state = {
+	preload: preload,
+	init: init,
+	create: create,
+	update: update
+	
+}
 
-        function preload () {
-            game.load.image('logo', '../img/megaman.png');
-        }
+var phaserGame = new Phaser.Game(
+	GAME_WIDTH,
+	GAME_HEIGHT,
+	Phaser.AUTO, //Auto will switch between WebGL and Canvas
+	'container',
+	state
+);
 
-        function create () {
-            var logo = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
-            logo.anchor.setTo(0.5, 0.5);
-        }
-};
+var taxiGame = new MEGAGame(phaserGame);
+
+function preload(){
+	taxiGame.preload();
+}
+function init(){
+	taxiGame.init();
+}
+function create(){
+	taxiGame.create();
+}
+function update(){
+	taxiGame.update();
+}

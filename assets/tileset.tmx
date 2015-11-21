@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="25" tilewidth="16" tileheight="16" nextobjectid="1">
+ <tileset firstgid="1" name="rect2989-1-0" tilewidth="16" tileheight="16" tilecount="4">
+  <image source="../img/rect2989-1-0.png" width="32" height="32"/>
+  <tile id="1">
+   <properties>
+    <property name="tipo" value="pared"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Capa de Patrones 1" width="50" height="25">
+  <data encoding="base64" compression="zlib">
+   eJztkeEKwCAIhFvb+z/zGPgjJLJ1WhodfDAYnt6V0tHR3spEdCE5coOZQvd6yVHeElGeekS0Sw4LaXXT8hnpWXO/lk+vl3YXKyRlQHPM7MXyLaK/c03ecuzS73fzxYiYiWeQMnlFyoHwEK1eLPfy3fwfioWvxZ2r995E+V1Dmv8zI831oul1wHkB05kExg==
+  </data>
+ </layer>
+</map>
