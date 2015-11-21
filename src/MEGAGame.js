@@ -25,7 +25,7 @@ var MEGAGame = (function(){
  	   	this.background2 = this.game.add.sprite(0, 600, 'backg');
 		Ivis = this.game.add.sprite(this.game.world.centerX, 100,'Ivis');
 		Ivis.anchor.setTo(0.5, 0.5);
-		Ivis.scale.setTo(0.2, 0.2);
+		Ivis.scale.setTo(0.09, 0.09);
 		this.game.physics.p2.enable(Ivis);
 	};
  
@@ -44,9 +44,9 @@ var MEGAGame = (function(){
 	 	this.moveBackground(this.background1);
 	  	this.moveBackground(this.background2);
 
-	  	if (cursors.left.isDown) {Ivis.body.rotateLeft(100);}   //ship movement
-	    else if (cursors.right.isDown){Ivis.body.rotateRight(100);}
-	    else {Ivis.body.setZeroRotation();}
+	  	if (cursors.left.isDown) {Ivis.body.moveLeft(100);}   //ship movement
+	    else if (cursors.right.isDown){Ivis.body.moveRight(100);}
+	    //else {Ivis.body.setZeroRotation();}
 	    if (cursors.up.isDown){Ivis.body.thrust(400);}
 	    else if (cursors.down.isDown){Ivis.body.reverse(400);}
 	};
