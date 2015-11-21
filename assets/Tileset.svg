@@ -26,7 +26,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.1712222"
-     inkscape:cx="261.44786"
+     inkscape:cx="96.235828"
      inkscape:cy="566.18756"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -44,7 +44,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -54,7 +54,9 @@
      id="layer1">
     <g
        id="g3424"
-       transform="translate(-28.72744,-0.85380554)">
+       transform="translate(-28.72744,-0.85380554)"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          style="fill:#ff2a2a;fill-opacity:1"
          id="rect3362"
@@ -78,7 +80,9 @@
     </g>
     <g
        id="g3429"
-       transform="translate(-458.72745,199.14621)">
+       transform="translate(-458.72745,199.14621)"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="152.13748"
          x="466.38245"
@@ -102,7 +106,9 @@
     </g>
     <g
        id="g3416"
-       transform="translate(0,2.2290039e-6)">
+       transform="translate(0,2.2290039e-6)"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="151.28368"
          x="7.6549907"
@@ -146,7 +152,9 @@
     </g>
     <g
        id="g3450"
-       transform="translate(200.00001,-21.999994)">
+       transform="translate(200.00001,-21.999994)"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          style="fill:#999999;fill-opacity:1"
          id="rect3380"
@@ -190,7 +198,9 @@
     </g>
     <g
        id="g3442"
-       transform="translate(-230,178.00002)">
+       transform="translate(-230,178.00002)"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="373.28369"
          x="237.655"
@@ -234,7 +244,9 @@
     </g>
     <g
        id="g3434"
-       transform="translate(-261.99999,178.00002)">
+       transform="translate(-261.99999,178.00002)"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          style="fill:#999999;fill-opacity:1"
          id="rect3404"
