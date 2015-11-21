@@ -1,4 +1,4 @@
-var GAME_WIDTH = 800;
+var GAME_WIDTH = 520;
 var GAME_HEIGHT = 600;
 
 var state = {
