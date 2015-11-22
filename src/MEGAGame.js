@@ -65,33 +65,28 @@ function playLevelMusic(){
 	  	console.log("angle: " + Ivis.body.angle)
 	  	if (cursors.left.isDown)
 	  	{
-	  		if(Ivis.body.angle>-30)
+	  		if(Ivis.body.angle<30)
 	  		{
-	    		Ivis.body.rotateRight(100);
+	    		Ivis.body.rotateRight(50);
 	  		}else{
-	  			Ivis.body.angle=-30;
+	  			Ivis.body.angle = 30;
 	  		}
 	  	}   //ship movement
 	    else if (cursors.right.isDown)
 	    {	
-	    	if(Ivis.body.angle<30)
+	    	if(Ivis.body.angle>-30)
 	    	{
-	  			Ivis.body.rotateLeft(100);
+	  			Ivis.body.rotateLeft(50);
 	    	}else{
-	    		Ivis.body.angle=30;
+	    		Ivis.body.angle = -30;
 	    	}
-	    	// Ivis.body.moveRight(100);
 	    }
 	    else 
 	    {
 	    	Ivis.body.setZeroRotation();
 	    }
 	    
-	    if (cursors.up.isDown)
-	    {
-			Ivis.body.thrust(400);
-		}
-	    else if (cursors.down.isDown)
+	    if (cursors.down.isDown)
 		{
 			Ivis.body.reverse(400);
 		}
