@@ -7,11 +7,28 @@ var MEGAGame = (function(){
 		this.hasStarted = false;
 		this.mouseTouchDown = false;
 		this.startScreen = undefined;
-
+		this.isDead = false;
+		this.gameOverGraphic = undefined;
 		this.anim;
 		this.triangle;
 	}
+MEGAGame.prototype.reset = function() {
 
+		this.scoreCount = 0;
+		this.counter.setScore(0, false);
+
+		// General game variables
+		this.mouseTouchDown = false;
+		this.hasStarted = false;
+		this.isDead = false;
+
+		// Sprite visibility
+
+		this.counter.visible = false;
+		this.startScreen.visible = true;	
+		this.loseScreen.visible = false;	
+		this.btnRestart.visible = false;
+	};
 	MEGAGame.prototype.touchDown = function() {
 		this.mouseTouchDown = true;
 
@@ -22,11 +39,11 @@ var MEGAGame = (function(){
 		    this.timer.start();
 		};
 	}
- 
 
 	MEGAGame.prototype.preload = function() {		
 		this.game.load.image('backg', 'assets/FONDO.png');
 		this.game.load.image('startScreen', 'assets/startScreen.png');
+		this.game.load.image('score', 'assets/score.png')
 		this.game.load.image('backgINV', 'assets/FONDO_INVERTED.png');
 		//this.game.load.image('Ivis','assets/rollar_new.png');		
     	this.game.load.audio('fall_velocity', 'assets/Falling_Velocity.ogg');
@@ -70,6 +87,7 @@ var MEGAGame = (function(){
 	 	this.background2 = this.game.add.sprite(0, 600, 'backgINV'); 	
 	 	  	
  		this.startScreen = this.game.add.sprite(0, 0, 'startScreen');
+ 		this.startScreen = this.game.add.sprite(0, 0, 'score');
 		this.Ivis = this.game.add.sprite(this.game.world.centerX - 75, 100,'Ivis1');
 		this.Ivis.anchor.setTo(0.5, 0.5);
 		this.Ivis.scale.setTo(0.25, 0.25);
