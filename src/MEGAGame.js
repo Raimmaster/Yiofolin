@@ -44,7 +44,7 @@ MEGAGame.prototype.preload = function() {
 		this.game.physics.p2.enable(Ivis);
 
 		this.game.camera.follow(Ivis);
-		
+
 		bg_music.play("", 0, 1, true);
 		bg_music.onLoop.add(this.playLevelMusic, this);
 		//bg_music.play();
@@ -90,14 +90,13 @@ function playLevelMusic(){
 			Ivis.body.y = 294;
 		}
 	};
+	MEGAGame.prototype.render = function() {
 
+	    this.game.debug.cameraInfo(this.game.camera, 32, 32);
+	    this.game.debug.spriteCoords(this.player, 32, 500);
+
+	}
 	return MEGAGame;
 
 })();
 
-function render() {
-
-    game.debug.cameraInfo(game.camera, 32, 32);
-    game.debug.spriteCoords(player, 32, 500);
-
-}
