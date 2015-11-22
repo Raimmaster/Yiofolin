@@ -10,6 +10,7 @@ var MEGAGame = (function(){
 
 MEGAGame.prototype.preload = function() {
 		this.game.load.image('backg', 'assets/FONDO.png');
+		this.game.load.image('backgINV', 'assets/FONDO_INVERTED.png');
 		this.game.load.image('Ivis','assets/rollar_new.png');
 };
 
@@ -20,13 +21,19 @@ MEGAGame.prototype.preload = function() {
 
  MEGAGame.prototype.create = function() {
  		this.game.physics.startSystem(Phaser.Physics.P2JS);
+ 		this.game.world.setBounds(0, 0, 1600, 1600);
  		cursors = this.game.input.keyboard.createCursorKeys();
- 	  	this.background1 = this.game.add.sprite(0, 0, 'backg');
- 	   	this.background2 = this.game.add.sprite(0, 600, 'backg');
+ 		for(var i = 0; i < 3; i++){
+ 			/*this.background1 =*/ this.game.add.sprite(0, 600 * i, 'backg');
+			/*this.background2 = */this.game.add.sprite(0, 600 * (i + 1), 'backgINV');	
+ 		}
+ 	  	
 		Ivis = this.game.add.sprite(this.game.world.centerX, 100,'Ivis');
 		Ivis.anchor.setTo(0.5, 0.5);
 		Ivis.scale.setTo(0.2, 0.2);
 		this.game.physics.p2.enable(Ivis);
+
+		this.game.camera.follow(Ivis);
 	};
  
  MEGAGame.prototype.moveBackground = function(background){
@@ -36,13 +43,15 @@ MEGAGame.prototype.preload = function() {
 		}else{
 	        background.y -=10;
 	    }
+
+	    //console.log("BG - Y: " + background.y);
 	};
 			 
  MEGAGame.prototype.update = function() {
 		//game.debug.spriteInfo(Ivis, 20, 32);
 		// Ivis.y++;
-	 	this.moveBackground(this.background1);
-	  	this.moveBackground(this.background2);
+	 	//this.moveBackground(this.background1);
+	  	//this.moveBackground(this.background2);
 
 	  	if (cursors.left.isDown)
 	  	{
@@ -68,10 +77,18 @@ MEGAGame.prototype.preload = function() {
 
 		console.log("X: " +  Ivis.x + " Y: " + Ivis.y);
 
-		if(Ivis.y > 400)
-			Ivis.body.y = 75;
+		if(Ivis.y > 1300){
+			Ivis.body.y = 212;
+		}
 	};
 
 	return MEGAGame;
 
 })();
+
+function render() {
+
+    game.debug.cameraInfo(game.camera, 32, 32);
+    game.debug.spriteCoords(player, 32, 500);
+
+}
