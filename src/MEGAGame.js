@@ -16,9 +16,11 @@ var MEGAGame = (function(){
 		this.mouseTouchDown = true;
 
 		if (!this.hasStarted) {
-			this.startGame();
+			this.startGame();			
+			this.timer = this.game.time.create(true);
+		    this.timer.loop(7000, this.changePlayerColor, this);
+		    this.timer.start();
 		};
-
 	}
  
 
@@ -36,6 +38,15 @@ var MEGAGame = (function(){
     	this.game.load.image('Ivis5','assets/triangle/t5.png');
     	this.game.load.image('Ivis6','assets/triangle/t6.png');  
 
+    	//Squares
+    	this.game.load.image('Enemy1','assets/squares/b1.png');
+    	this.game.load.image('Enemy2','assets/squares/b2.png');
+    	this.game.load.image('Enemy3','assets/squares/b3.png');
+    	this.game.load.image('Enemy4','assets/squares/b4.png');
+    	this.game.load.image('Enemy5','assets/squares/b5.png');
+    	this.game.load.image('Enemy6','assets/squares/b6.png');
+
+    	//changing animation
     	this.game.load.spritesheet('triangle', 'assets/triangle/tri_spritesheet.png',
     	 200, 200, 5);  	
 	};
@@ -78,19 +89,7 @@ var MEGAGame = (function(){
 		this.bg_music.play("", 0, 1, true);
 		this.bg_music.onLoop.add(playLevelMusic, this);
 
-		//this.game.time.events.repeat(Phaser.Timer.SECOND * 5, 
-		//	10000000, changePlayerColor, this);
-		this.timer = this.game.time.create(true);
-
-	    //  Set a TimerEvent to occur after 2 seconds
-	    this.timer.loop(7000, this.changePlayerColor, this);
-
-	    //  Start the timer running - this is important!
-	    //  It won't start automatically, allowing you to hook it to button events and the like.
-	    this.timer.start();
-
 		this.anim_actual = 0;
-		this.counter = 0;
 	};
 
 
@@ -119,14 +118,11 @@ MEGAGame.prototype.startGame = function() {
 		//change colors
 		var animacion = this.anim_actual;
 		
-			//this.Ivis = this.game.add.sprite(this.Ivis.x, this.Ivis.y,'Ivis2');	
-			//this.Ivis.anchor.setTo(0.5, 0.5);
-			//this.Ivis.scale.setTo(0.15, 0.15)1;
-			//this.game.physics.p2.enable(this.Ivis);	
-
-		//if(this.anim_actual < 5)
-		//	this.anim_actual++	;		
-		//else if(this.anim_actual > 0)
+		//this.Ivis = this.game.add.sprite(this.Ivis.x, this.Ivis.y,'Ivis2');	
+		//this.Ivis.anchor.setTo(0.5, 0.5);
+		//this.Ivis.scale.setTo(0.15, 0.15)1;
+		//this.game.physics.p2.enable(this.Ivis);	
+		
 		this.anim_actual = Math.floor((Math.random() * 5)); ;		
 
 		if(animacion !== this.anim_actual){	
@@ -152,6 +148,14 @@ MEGAGame.prototype.startGame = function() {
 					break;
 			}
 		}
+
+		for(var i = 0; i < (Math.floor(Math.random() * 10) + 1); i++){
+			this.enem = this.game.add.sprite(i + Math.random() * 400,  590, 'Enemy2');	
+			this.enem.anchor.setTo(0.5, 0.5);
+			this.enem.scale.setTo(0.1, 0.1);
+			this.game.physics.p2.enable(this.enem);			
+			this.enem.body.thrust(50000);
+		}
 	}
 
 	MEGAGame.prototype.touchUp = function() {
@@ -176,7 +180,6 @@ MEGAGame.prototype.startGame = function() {
 			};
 		}
 
-	  	console.log("angle: " + this.Ivis.body.angle)
 	  	if (cursors.left.isDown)
 	  	{
 	  		this.Ivis.body.rotateRight(50);	  		
@@ -198,6 +201,9 @@ MEGAGame.prototype.startGame = function() {
 			this.Ivis.body.thrust(150);
 		}
 
+
+		//spawnear enemigos
+		
 		//console.log("X: " +  this.Ivis.x + " Y: " + this.Ivis.y);		
 	};
 
