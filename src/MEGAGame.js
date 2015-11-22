@@ -83,7 +83,9 @@ var MEGAGame = (function(){
  		this.startScreen = this.game.add.sprite(0, 0, 'startScreen');
  		this.pauseScreen = this.game.add.sprite(0, 0, 'loseScreen');
  		this.pauseScreen.visible=false;
-		this.Ivis = this.game.add.sprite(this.game.world.centerX, 300,'Ivis1');
+		this.Ivis = this.game.add.sprite(this.game.world.centerX, 300, 'Ivis1');
+		// this.Ivis.inputEnabled = true;
+		// this.Ivis.input.enableDrag(true);
 		this.curr_Texture = 1;
 		this.Ivis.anchor.setTo(0.5, 0.5);
 		this.Ivis.scale.setTo(0.25, 0.25);
@@ -112,11 +114,19 @@ var MEGAGame = (function(){
 
 	MEGAGame.prototype.createEnemyGroup = function(){
 		this.curr_enemy = (Math.floor(Math.random() * 6 + 1));
-		this.cuadrados1.createMultiple(5, "Enemy" + this.curr_enemy);
+		this.cuadrados1.createMultiple(4, "Enemy" + this.curr_enemy);
 		this.cuadrados1.setAll('anchor.x', 0.5);
 		this.cuadrados1.setAll('anchor.x', 1);
 		this.cuadrados1.setAll('outOfBoundsKill', true);
 		this.cuadrados1.setAll('checkWorldBounds', true);		
+
+		// enemio = this.cuadrados1.getFirstExists(false);
+
+		// if(this.hasStarted && enemio){
+		// 	enemio.reset(this.game.world.randomX, 590);
+		// 	enemio.scale.setTo(0.15, 0.15);
+		// 	enemio.body.velocity.y = -300;
+		// }
 	}
 
 	//Aplicacion para iniciar el juego 
@@ -159,7 +169,7 @@ var MEGAGame = (function(){
 
 		this.curr_Texture = this.anim_actual+1;
 		if(animacion !== this.anim_actual){	
-			console.log("Y yo estoy aqui");
+			//console.log("Y yo estoy aqui");
 			switch(this.anim_actual){
 				case 0:
 					this.Ivis.loadTexture('Ivis1');
@@ -181,29 +191,6 @@ var MEGAGame = (function(){
 					break;
 			}
 		}
-
-		//creating enemies, option 1
-		// for(var i = 0; i < (Math.floor(Math.random() * 10) + 1); i++){
-		// 		590, 'Enemy2');	
-		// 	this.enem = this.game.add.sprite(this.game.world.randomX,  
-		// 	this.enem.anchor.setTo(0.5, 0.5);
-		// 	this.enem.scale.setTo(0.1, 0.1);
-		// 	this.game.physics.enable(this.enem, Phaser.Physics.ARCADE);		
-		// 	this.enem.body.collideWorldBounds = false;	
-		// 	this.enem.body.velocity.y = -(500);
-		// }
-
-		//creating enemies, option 2		
-		//spawnear enemigos
-		/*enemio = this.cuadrados1.getFirstExists(false);
-
-		if(this.hasStarted && enemio){
-			enemio.reset(this.game.world.randomX, 590);
-			enemio.scale.setTo(0.15, 0.15);
-			enemio.body.velocity.y = -300;
-		}*/
-
-		//this.createEnemyGroup();
 	}
 
 	MEGAGame.prototype.ascend = function(){
@@ -219,13 +206,11 @@ var MEGAGame = (function(){
   		this.moveBackground(this.background2);
 
   		if (this.game.input.activePointer.isDown) {
-			if (!this.mouseTouchDown) {
+			if (!this.mouseTouchDown)
 				this.touchDown();
-			};
 		} else {
-			if (this.mouseTouchDown) {
-				this.touchUp();
-			};
+			if (this.mouseTouchDown)
+				this.touchUp();			
 		}
 
 	  	if (cursors.left.isDown)
@@ -257,7 +242,9 @@ var MEGAGame = (function(){
 			this.collisionHandler, null, this);
 
 		for (var i = 0; i < this.cuadrados1.children.length; i++) {
-			if(this.cuadrados1.children[i].y < 0)
+			var squ = this.cuadrados1.children[i];
+			//console.log(squ.y);
+			if(this.cuadrados1.children[i].y <= 1)
 				this.resetBullet(this.cuadrados1.children[i]);
 		}
 		
@@ -265,6 +252,7 @@ var MEGAGame = (function(){
 	};
 
 	MEGAGame.prototype.resetBullet = function(il_enem){
+		console.log("Ciao, dude!");
 		il_enem.kill();
 	}
 
@@ -273,14 +261,14 @@ var MEGAGame = (function(){
 		// cuadrado.kill();
 		// player.kill();
 
-		console.log("player: " + this.curr_Texture);
-		console.log("Enemy: " + this.curr_enemy)
-		console.log("key player: " + player.key);
-		console.log("key enemy: " + cuadrado.key);
+		// console.log("player: " + this.curr_Texture);
+		// console.log("Enemy: " + this.curr_enemy)
+		// console.log("key player: " + player.key);
+		// console.log("key enemy: " + cuadrado.key);
 
 		var enem_key = player.key.charAt(player.key.length - 1);
 		var player_key = cuadrado.key.charAt(cuadrado.key.length - 1);
-		console.log("E-key: " + enem_key + " Player-key: " + player_key);
+		// console.log("E-key: " + enem_key + " Player-key: " + player_key);
 		if(enem_key === player_key)
 		{
 			this.score++;
