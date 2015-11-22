@@ -31,7 +31,8 @@ var MEGAGame = (function(){
 		    this.timer_enemy = this.game.time.create(true);
 		    this.timer_enemy.loop(7000, this.createEnemyGroup, this);
 		    this.timer_enemy.start(); 
-		}else if(this.hasPaused){
+		}
+		if(this.hasPaused){
 			this.create();
 			this.cuadrados1 = this.game.add.group();
 			this.cuadrados1.enableBody = true;
@@ -180,6 +181,7 @@ var MEGAGame = (function(){
 
 	MEGAGame.prototype.pauseGame = function() {
 		this.hasPaused = true;
+		this.hasStarted = false;
 		this.pauseScreen.visible = true;
 		this.btmText.text = " " + this.score;
 		this.btmText.x = this.game.world.centerX+10;
