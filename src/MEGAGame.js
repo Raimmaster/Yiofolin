@@ -6,12 +6,14 @@ var MEGAGame = (function(){
 	}
  
  var Ivis;
+ var bg_music;
  //var cursors;
 
 MEGAGame.prototype.preload = function() {
 		this.game.load.image('backg', 'assets/FONDO.png');
 		this.game.load.image('backgINV', 'assets/FONDO_INVERTED.png');
-		this.game.load.image('Ivis','assets/rollar_new.png');
+		this.game.load.image('Ivis','assets/rollar_new.png');		
+    	this.game.load.audio('fall_velocity', 'assets/Falling_Velocity.ogg');
 };
 
  MEGAGame.prototype.init = function() {
@@ -22,6 +24,7 @@ MEGAGame.prototype.preload = function() {
  MEGAGame.prototype.create = function() {
  		this.game.physics.startSystem(Phaser.Physics.P2JS);
  		this.game.world.setBounds(0, 0, 520, 3000);
+ 		bg_music = this.game.add.audio('fall_velocity');
  		cursors = this.game.input.keyboard.createCursorKeys();
  		//for(var i = 0; i < 3; i++){
  		this.game.add.sprite(0, 0, 'backg');
@@ -38,18 +41,17 @@ MEGAGame.prototype.preload = function() {
 		this.game.physics.p2.enable(Ivis);
 
 		this.game.camera.follow(Ivis);
-	};
- 
- /*MEGAGame.prototype.moveBackground = function(background){
-		if (background.y < -590) {
-	       	background.y = 600;
-	        background.y -= 10;
-		}else{
-	        background.y -=10;
-	    }
+		
+		bg_music.play("", 0, 1, true);
+		bg_music.onLoop.add(this.playLevelMusic, this);
+		//bg_music.play();
+};
 
-	    //console.log("BG - Y: " + background.y);
-};*/	
+function playLevelMusic(){
+	bg_music.play("", 0, 1, true);
+}
+
+
 			 
  MEGAGame.prototype.update = function() {
 		//game.debug.spriteInfo(Ivis, 20, 32);
