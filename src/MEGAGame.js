@@ -22,12 +22,6 @@ var MEGAGame = (function(){
 
 	}
  
- 	MEGAGame.prototype.startGame = function() {
-		this.hasStarted = true;
-		this.logo.visible = false;
-		this.counter.visible = true;
-		this.tapToStart.visible = false;
-	};
 
 	MEGAGame.prototype.preload = function() {		
 		this.game.load.image('backg', 'assets/FONDO.png');
@@ -92,8 +86,8 @@ var MEGAGame = (function(){
 MEGAGame.prototype.startGame = function() {
 	this.hasStarted = true;
 	this.startScreen.visible = false;
-	this.counter.visible = true;
-	this.tapToStart.visible = false;
+	//this.counter.visible = true;
+	
 
 };
 
@@ -109,7 +103,9 @@ MEGAGame.prototype.startGame = function() {
 		this.bg_music.play("", 0, 1, true);
 	}
 
-
+MEGAGame.prototype.touchUp = function() {
+		this.mouseTouchDown = false;
+	};
 		 
 	MEGAGame.prototype.update = function() {
 		//game.debug.spriteInfo(this.Ivis, 20, 32);
@@ -118,6 +114,16 @@ MEGAGame.prototype.startGame = function() {
 		
  		this.moveBackground(this.background1);
   		this.moveBackground(this.background2);
+
+  		if (this.game.input.activePointer.isDown) {
+			if (!this.mouseTouchDown) {
+				this.touchDown();
+			};
+		} else {
+			if (this.mouseTouchDown) {
+				this.touchUp();
+			};
+		}
 
 	  	console.log("angle: " + this.Ivis.body.angle)
 	  	if (cursors.left.isDown)
