@@ -13,6 +13,7 @@ var MEGAGame = (function(){
 		this.score = 0;
 		this.curr_Texture;
 		this.curr_enemy;
+		this.btmText = undefined;
 
 		this.anim;
 		this.triangle;
@@ -30,6 +31,28 @@ var MEGAGame = (function(){
 		    this.timer_enemy = this.game.time.create(true);
 		    this.timer_enemy.loop(7000, this.createEnemyGroup, this);
 		    this.timer_enemy.start(); 
+		}else if(this.hasPaused){
+			this.create();
+			this.startGame();
+			this.hasPaused=false;
+			this.pauseScreen.visible=false;
+			this.btmText.x=5;
+			this.btmText.y=10;
+			this.btmText.text = "score: 0";
+			this.Ivis.body.velocity.x=0;
+			this.Ivis.body.velocity.y=0;
+			this.Ivis.loadTexture('Ivis1');
+			this.Ivis.visible=true;
+			this.Ivis.x=this.game.world.centerX;
+			this.Ivis.y=300;
+			// this.Ivis = this.game.add.sprite(this.game.world.centerX, 300, 'Ivis1');
+			// this.Ivis = this.game.add.sprite(this.game.world.centerX, 300, 'Ivis1');
+			// this.Ivis.anchor.setTo(0.5, 0.5);
+			// this.Ivis.scale.setTo(0.25, 0.25);
+			// this.game.physics.enable(this.Ivis, Phaser.Physics.ARCADE);
+			// this.Ivis.body.collideWorldBounds = true;
+			// this.game.camera.follow(this.Ivis);
+
 		}
 	}
  
@@ -60,6 +83,9 @@ var MEGAGame = (function(){
     	//changing animation
     	this.game.load.spritesheet('triangle', 'assets/triangle/tri_spritesheet.png',
     	 200, 200, 5);  	
+
+    	//bitmap
+    	this.game.load.bitmapFont('carrier_command', 'assets/carrier_command.png', 'assets/carrier_command.xml');
 	};
 
 	MEGAGame.prototype.init = function() {
@@ -109,7 +135,10 @@ var MEGAGame = (function(){
 		// this.enemies = this.game.add.group();
 		// this.enemies.enableBody = true;
 		// this.enemies.physicsBodyType = Phaser.Physics.ARCADE;
-		//this.Ivis.body.angularAcceleration = 0;		
+		//this.Ivis.body.angularAcceleration = 0;	
+
+		this.btmText = this.game.add.bitmapText(10, 5, 'carrier_command','score: 0',34);
+		this.btmText.visible = false;
 	};
 
 	MEGAGame.prototype.createEnemyGroup = function(){
@@ -133,6 +162,7 @@ var MEGAGame = (function(){
 	MEGAGame.prototype.startGame = function() {
 		this.hasStarted = true;
 		this.startScreen.visible = false;
+		this.btmText.visible = true;
 		this.score = 0;
 		
 		//this.counter.visible = true;
@@ -141,6 +171,9 @@ var MEGAGame = (function(){
 	MEGAGame.prototype.pauseGame = function() {
 		this.hasPaused = true;
 		this.pauseScreen.visible = true;
+		this.btmText.text = " " + this.score;
+		this.btmText.x = this.game.world.centerX+10;
+		this.btmText.y = this.game.world.centerY+85;
 	};
 
 	MEGAGame.prototype.moveBackground = function(background){
@@ -238,8 +271,11 @@ var MEGAGame = (function(){
 			enemio.body.velocity.y = -300;
 		}	
 
-		this.game.physics.arcade.overlap(this.cuadrados1,this.Ivis, 
-			this.collisionHandler, null, this);
+		if(this.hasStarted)
+		{
+			this.game.physics.arcade.overlap(this.cuadrados1,this.Ivis, 
+				this.collisionHandler, null, this);
+		}
 
 		for (var i = 0; i < this.cuadrados1.children.length; i++) {
 			var squ = this.cuadrados1.children[i];
@@ -273,9 +309,11 @@ var MEGAGame = (function(){
 		{
 			this.score++;
 			console.log("dogeeeees " + this.score);
+			this.btmText.text = "score: " + this.score;
 			player.kill();
 		}else{
-			cuadrado.kill();
+			// cuadrado.kill();
+			cuadrado.visible=false;
 			this.pauseGame();
 		}
 
