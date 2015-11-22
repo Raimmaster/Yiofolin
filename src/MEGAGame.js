@@ -10,8 +10,8 @@ var MEGAGame = (function(){
  //var cursors;
 
 MEGAGame.prototype.preload = function() {
-		this.game.load.image('backg', 'assets/FONDO.png');
-		this.game.load.image('backgINV', 'assets/FONDO_INVERTED.png');
+		this.game.load.image('backg', 'assets/fondo-2.png');
+		this.game.load.image('backgINV', 'assets/fondo-2.png');
 		this.game.load.image('Ivis','assets/rollar_new.png');		
     	this.game.load.audio('fall_velocity', 'assets/Falling_Velocity.ogg');
 };
@@ -22,7 +22,7 @@ MEGAGame.prototype.preload = function() {
 		this.game.scale.pageAlignHorizontally = true;
 		this.game.scale.pageAlignVertically = true;
 		this.game.scale.refresh();
-	};
+};
 
  MEGAGame.prototype.create = function() {
  		this.game.physics.startSystem(Phaser.Physics.P2JS);
@@ -31,16 +31,16 @@ MEGAGame.prototype.preload = function() {
  		cursors = this.game.input.keyboard.createCursorKeys();
  		//for(var i = 0; i < 3; i++){
  		this.game.add.sprite(0, 0, 'backg');
-		this.game.add.sprite(0, 600, 'backgINV');
+		//this.game.add.sprite(0, 600, 'backgINV');
  		this.game.add.sprite(0, 1200, 'backg');
-		this.game.add.sprite(0, 1800, 'backgINV');
+		//this.game.add.sprite(0, 1800, 'backgINV');
  		this.game.add.sprite(0, 2400, 'backg');
-		this.game.add.sprite(0, 3000, 'backgINV');	
+		//this.game.add.sprite(0, 3000, 'backgINV');	
  		
  	  	
 		Ivis = this.game.add.sprite(this.game.world.centerX, 100,'Ivis');
 		Ivis.anchor.setTo(0.5, 0.5);
-		Ivis.scale.setTo(0.09, 0.09);
+		Ivis.scale.setTo(0.07, 0.07);
 		this.game.physics.p2.enable(Ivis);
 
 		this.game.camera.follow(Ivis);
@@ -54,14 +54,13 @@ function playLevelMusic(){
 	bg_music.play("", 0, 1, true);
 }
 
-
 			 
- MEGAGame.prototype.update = function() {
+MEGAGame.prototype.update = function() {
 		//game.debug.spriteInfo(Ivis, 20, 32);
 		// Ivis.y++;
 	 	//this.moveBackground(this.background1);
 	  	//this.moveBackground(this.background2);
-	  	Ivis.body.reverse(600);
+	  	Ivis.body.reverse(400);
 		
 	  	console.log("angle: " + Ivis.body.angle)
 	  	if (cursors.left.isDown)
@@ -94,7 +93,7 @@ function playLevelMusic(){
 
 		console.log("X: " +  Ivis.x + " Y: " + Ivis.y);
 
-		if(Ivis.y > 2700){
+		if(Ivis.y > 2698){
 			Ivis.body.y = 294;
 		}
 	};
