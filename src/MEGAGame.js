@@ -77,7 +77,7 @@ var MEGAGame = (function(){
 		this.triangle = this.game.add.sprite(50, 150, 'triangle', 5);
 		this.triangle.scale.setTo(0.15, 0.15);
 		this.triangle.smoothed = false;
-		this.anim = triangle.animations.add('change_color');
+		this.anim = this.triangle.animations.add('change_color');
 		//this.anim.onStart.add(animationStarted, this);
 		//this.anim.onLoop.add(animationLooped, this);
 		//this.anim.onComplete.add(animationStopped, this);
