@@ -58,10 +58,10 @@ var MEGAGame = (function(){
  
 
 	MEGAGame.prototype.preload = function() {		
-		this.game.load.image('backg', 'assets/FONDO.png');
+		this.game.load.image('backg', 'assets/Fil/Fondo.png');
 		this.game.load.image('startScreen', 'assets/startScreen.png');
 		this.game.load.image('loseScreen', 'assets/loseScreen.png');
-		this.game.load.image('backgINV', 'assets/FONDO_INVERTED.png');
+		this.game.load.image('backgINV', 'assets/Fil/Fondo.png');
 		//this.game.load.image('Ivis','assets/rollar_new.png');		
     	this.game.load.audio('fall_velocity', 'assets/Falling_Velocity.ogg');
     	//TRIANGLES
