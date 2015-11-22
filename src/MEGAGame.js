@@ -82,7 +82,7 @@ MEGAGame.prototype.preload = function() {
 		console.log("X: " +  Ivis.x + " Y: " + Ivis.y);
 
 		if(Ivis.y > 2700){
-			Ivis.body.y = 285;
+			Ivis.body.y = 294;
 		}
 	};
 
