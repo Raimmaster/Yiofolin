@@ -62,24 +62,31 @@ function playLevelMusic(){
 	 	//this.moveBackground(this.background1);
 	  	//this.moveBackground(this.background2);
 
+	  	console.log("angle: " + Ivis.body.angle)
 	  	if (cursors.left.isDown)
 	  	{
-	  		Ivis.body.rotateLeft(100);	  		
+	  		if(Ivis.body.angle<30)
+	  		{
+	    		Ivis.body.rotateRight(50);
+	  		}else{
+	  			Ivis.body.angle = 30;
+	  		}
 	  	}   //ship movement
 	    else if (cursors.right.isDown)
 	    {	
-	    	Ivis.body.rotateRight(100);
+	    	if(Ivis.body.angle>-30)
+	    	{
+	  			Ivis.body.rotateLeft(50);
+	    	}else{
+	    		Ivis.body.angle = -30;
+	    	}
 	    }
 	    else 
 	    {
 	    	Ivis.body.setZeroRotation();
 	    }
 	    
-	    if (cursors.up.isDown)
-	    {
-			Ivis.body.thrust(400);
-		}
-	    else if (cursors.down.isDown)
+	    if (cursors.down.isDown)
 		{
 			Ivis.body.reverse(400);
 		}
