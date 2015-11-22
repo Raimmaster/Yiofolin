@@ -62,6 +62,7 @@ var MEGAGame = (function(){
 		this.game.load.image('startScreen', 'assets/startScreen.png');
 		this.game.load.image('loseScreen', 'assets/loseScreen.png');
 		this.game.load.image('backgINV', 'assets/Fil/Fondo.png');
+		this.game.load.image('backgOver', 'assets/Fil/EnfrenteGradiente.png');
 		//this.game.load.image('Ivis','assets/rollar_new.png');		
     	this.game.load.audio('fall_velocity', 'assets/Falling_Velocity.ogg');
     	//TRIANGLES
@@ -137,8 +138,10 @@ var MEGAGame = (function(){
 		// this.enemies.physicsBodyType = Phaser.Physics.ARCADE;
 		//this.Ivis.body.angularAcceleration = 0;	
 
+
 		this.btmText = this.game.add.bitmapText(10, 5, 'carrier_command','score: 0',34);
 		this.btmText.visible = false;
+		this.backOver = this.game.add.sprite(0,0,'backgOver');
 	};
 
 	MEGAGame.prototype.createEnemyGroup = function(){
