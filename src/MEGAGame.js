@@ -19,6 +19,9 @@ MEGAGame.prototype.preload = function() {
  MEGAGame.prototype.init = function() {
 		this.game.stage.backgroundColor = '#9bt3e1';
 		this.game.add.plugin(Phaser.Plugin.Debug);
+		this.game.scale.pageAlignHorizontally = true;
+		this.game.scale.pageAlignVertically = true;
+		this.game.scale.refresh();
 	};
 
  MEGAGame.prototype.create = function() {
