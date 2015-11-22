@@ -1,3 +1,4 @@
+
 var MEGAGame = (function(){
 	
 	function MEGAGame(phaserGame) {
@@ -22,9 +23,13 @@ var MEGAGame = (function(){
 		
 		if (!this.hasStarted) {
 			this.startGame();			
-			this.timer = this.game.time.create(true);
-		    this.timer.loop(7000, this.changePlayerColor, this);
-		    this.timer.start();
+			this.timer_color = this.game.time.create(true);
+		    this.timer_color.loop(5000, this.changePlayerColor, this);
+		    this.timer_color.start();
+
+		    this.timer_enemy = this.game.time.create(true);
+		    this.timer_enemy.loop(7000, this.createEnemyGroup, this);
+		    this.timer_enemy.start(); 
 		}
 	}
  
@@ -97,18 +102,22 @@ var MEGAGame = (function(){
 		this.cuadrados1.enableBody = true;
 		this.cuadrados1.physicsBodyType = Phaser.Physics.ARCADE;
 
-		this.curr_enemy = (Math.floor(Math.random() * 6 + 1));
-		this.cuadrados1.createMultiple(5, "Enemy" + this.curr_enemy);
-		this.cuadrados1.setAll('anchor.x', 0.5);
-		this.cuadrados1.setAll('anchor.x', 1);
-		this.cuadrados1.setAll('outOfBoundsKill', true);
-		this.cuadrados1.setAll('checkWorldBounds', true);
+		//this.createEnemyGroup();
 		/***/
 		// this.enemies = this.game.add.group();
 		// this.enemies.enableBody = true;
 		// this.enemies.physicsBodyType = Phaser.Physics.ARCADE;
 		//this.Ivis.body.angularAcceleration = 0;		
 	};
+
+	MEGAGame.prototype.createEnemyGroup = function(){
+		this.curr_enemy = (Math.floor(Math.random() * 6 + 1));
+		this.cuadrados1.createMultiple(5, "Enemy" + this.curr_enemy);
+		this.cuadrados1.setAll('anchor.x', 0.5);
+		this.cuadrados1.setAll('anchor.x', 1);
+		this.cuadrados1.setAll('outOfBoundsKill', true);
+		this.cuadrados1.setAll('checkWorldBounds', true);		
+	}
 
 	//Aplicacion para iniciar el juego 
 	MEGAGame.prototype.startGame = function() {
@@ -138,6 +147,7 @@ var MEGAGame = (function(){
 
 	MEGAGame.prototype.changePlayerColor = function (){
 		//change colors
+
 		var animacion = this.anim_actual;
 		
 		//this.Ivis = this.game.add.sprite(this.Ivis.x, this.Ivis.y,'Ivis2');	
@@ -174,8 +184,8 @@ var MEGAGame = (function(){
 
 		//creating enemies, option 1
 		// for(var i = 0; i < (Math.floor(Math.random() * 10) + 1); i++){
-		// 	this.enem = this.game.add.sprite(this.game.world.randomX,  
 		// 		590, 'Enemy2');	
+		// 	this.enem = this.game.add.sprite(this.game.world.randomX,  
 		// 	this.enem.anchor.setTo(0.5, 0.5);
 		// 	this.enem.scale.setTo(0.1, 0.1);
 		// 	this.game.physics.enable(this.enem, Phaser.Physics.ARCADE);		
@@ -185,13 +195,15 @@ var MEGAGame = (function(){
 
 		//creating enemies, option 2		
 		//spawnear enemigos
-		enemio = this.cuadrados1.getFirstExists(false);
+		/*enemio = this.cuadrados1.getFirstExists(false);
 
 		if(this.hasStarted && enemio){
 			enemio.reset(this.game.world.randomX, 590);
 			enemio.scale.setTo(0.15, 0.15);
 			enemio.body.velocity.y = -300;
-		}
+		}*/
+
+		this.createEnemyGroup();
 	}
 
 	MEGAGame.prototype.ascend = function(){
@@ -265,7 +277,11 @@ var MEGAGame = (function(){
 		console.log("Enemy: " + this.curr_enemy)
 		console.log("key player: " + player.key);
 		console.log("key enemy: " + cuadrado.key);
-		if(this.curr_enemy === this.curr_Texture)
+
+		var enem_key = player.key.charAt(player.key.length - 1);
+		var player_key = cuadrado.key.charAt(cuadrado.key.length - 1);
+		console.log("E-key: " + enem_key + " Player-key: " + player_key);
+		if(enem_key === player_key)
 		{
 			this.score++;
 			console.log("dogeeeees " + this.score);
