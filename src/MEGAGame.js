@@ -200,6 +200,10 @@ var MEGAGame = (function(){
 		this.bg_music.play("", 0, 1, true);
 	}
 
+	MEGAGame.prototype.setColor = function(color){
+		this.Ivis.loadTexture('Ivis' + color);
+	};
+
 	MEGAGame.prototype.changePlayerColor = function (){
 		//change colors
 
@@ -273,6 +277,26 @@ var MEGAGame = (function(){
 		}else if (cursors.up.isDown)
 		{
 			this.Ivis.body.velocity.y = -150;
+		}
+
+		if(this.game.input.keyboard.isDown(Phaser.Keyboard.A))
+		{
+			this.setColor(1);
+		}else if(this.game.input.keyboard.isDown(Phaser.Keyboard.S))
+		{
+			this.setColor(2);
+		}else if(this.game.input.keyboard.isDown(Phaser.Keyboard.D))
+		{
+			this.setColor(3);
+		}else if(this.game.input.keyboard.isDown(Phaser.Keyboard.Z))
+		{
+			this.setColor(4);
+		}else if(this.game.input.keyboard.isDown(Phaser.Keyboard.X))
+		{
+			this.setColor(5);
+		}else if(this.game.input.keyboard.isDown(Phaser.Keyboard.C))
+		{
+			this.setColor(6);
 		}
 
 		enemio = this.cuadrados1.getFirstExists(false);
