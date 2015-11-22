@@ -5,9 +5,11 @@ var MEGAGame = (function(){
 		this.Ivis;
 		this.bg_music;
 		this.hasStarted = false;
-<<<<<<< HEAD
 		this.mouseTouchDown = false;
 		this.startScreen = undefined;
+
+		this.anim;
+		this.triangle;
 
 	}
 
@@ -18,9 +20,6 @@ var MEGAGame = (function(){
 			this.startGame();
 		};
 
-=======
-		this.anim;
-		this.triangle;
 	}
  
  	MEGAGame.prototype.startGame = function() {
@@ -28,8 +27,6 @@ var MEGAGame = (function(){
 		this.logo.visible = false;
 		this.counter.visible = true;
 		this.tapToStart.visible = false;
-		this.tapToStart.blinker.stopBlinking();
->>>>>>> 7f84e3d54839e87e0a4c6a49b2ed4fc4223d6fa7
 	};
 
 	MEGAGame.prototype.preload = function() {		
@@ -38,10 +35,6 @@ var MEGAGame = (function(){
 		this.game.load.image('backgINV', 'assets/FONDO_INVERTED.png');
 		//this.game.load.image('Ivis','assets/rollar_new.png');		
     	this.game.load.audio('fall_velocity', 'assets/Falling_Velocity.ogg');
-<<<<<<< HEAD
-
-};
-=======
     	//TRIANGLES
     	this.game.load.image('Ivis1','assets/triangle/t1.png');
     	this.game.load.image('Ivis2','assets/triangle/t2.png');
@@ -53,7 +46,6 @@ var MEGAGame = (function(){
     	this.game.load.spritesheet('triangle', 'assets/triangle/tri_spritesheet.png',
     	 200, 200, 5);  	
 	};
->>>>>>> 7f84e3d54839e87e0a4c6a49b2ed4fc4223d6fa7
 
 	MEGAGame.prototype.init = function() {
 		this.game.stage.backgroundColor = '#9bt3e1';
@@ -61,57 +53,9 @@ var MEGAGame = (function(){
 		this.game.scale.pageAlignHorizontally = true;
 		this.game.scale.pageAlignVertically = true;
 		this.game.scale.refresh();
-<<<<<<< HEAD
-};
 
- MEGAGame.prototype.create = function() {       
-	this.game.physics.startSystem(Phaser.Physics.P2JS);
- 	//this.game.world.setBounds(0, 0, 600, 3000);
- 	this.bg_music = this.game.add.audio('fall_velocity');
- 	cursors = this.game.input.keyboard.createCursorKeys();
- 	//for(var i = 0; i < 3; i++){
- 	this.background1 = this.game.add.sprite(0, 0, 'backg');
- 	this.background2 = this.game.add.sprite(0, 600, 'backgINV'); 	
- 	
- 	this.startScreen = this.game.add.sprite(0, 0, 'startScreen');
-	//this.startScreen.anchor.setTo(0.5, 0.5);
-	//this.startScreen.x = this.game.world.centerX;
-	//this.startScreen.y = 100;
-
-	this.Ivis = this.game.add.sprite(this.game.world.centerX - 75, 100,'this.Ivis');
-	this.Ivis.anchor.setTo(0.5, 0.5);
-	this.Ivis.scale.setTo(0.05, 0.05);
-	this.game.physics.p2.enable(this.Ivis);
-
-	this.game.camera.follow(this.Ivis);
-		
-	this.bg_music.play("", 0, 1, true);
-	this.bg_music.onLoop.add(playLevelMusic, this);
-	//this.bg_music.play();
-};
-
-MEGAGame.prototype.moveBackground = function(background){
-	if (background.y < -590) {
-		background.y = 600;
-		background.y -= 15;
-	}else
-		background.y -= 15;			    
-};
-
-function playLevelMusic(){
-	this.bg_music.play("", 0, 1, true);
-}
-
-//Aplicacion para iniciar el juego 
-MEGAGame.prototype.startGame = function() {
-	this.hasStarted = true;
-	this.startScreen.visible = false;
-	this.counter.visible = true;
-	this.tapToStart.visible = false;
-
-};
-=======
 	};
+
 
 	MEGAGame.prototype.create = function() {
 		this.game.physics.startSystem(Phaser.Physics.P2JS);
@@ -122,6 +66,7 @@ MEGAGame.prototype.startGame = function() {
 	 	this.background1 = this.game.add.sprite(0, 0, 'backg');
 	 	this.background2 = this.game.add.sprite(0, 600, 'backgINV'); 	
 	 	  	
+ 		this.startScreen = this.game.add.sprite(0, 0, 'startScreen');
 		this.Ivis = this.game.add.sprite(this.game.world.centerX - 75, 100,'Ivis1');
 		this.Ivis.anchor.setTo(0.5, 0.5);
 		this.Ivis.scale.setTo(0.15, 0.15);
@@ -130,7 +75,7 @@ MEGAGame.prototype.startGame = function() {
 		this.game.camera.follow(this.Ivis);
 
 		this.triangle = this.game.add.sprite(50, 150, 'triangle', 5);
-		this.triangle = this.triangle.scale.setTo(0.15, 0.15);
+		this.triangle.scale.setTo(0.15, 0.15);
 		this.triangle.smoothed = false;
 		this.anim = triangle.animations.add('change_color');
 		//this.anim.onStart.add(animationStarted, this);
@@ -141,6 +86,16 @@ MEGAGame.prototype.startGame = function() {
 		this.bg_music.play("", 0, 1, true);
 		this.bg_music.onLoop.add(playLevelMusic, this);
 	};
+
+
+//Aplicacion para iniciar el juego 
+MEGAGame.prototype.startGame = function() {
+	this.hasStarted = true;
+	this.startScreen.visible = false;
+	this.counter.visible = true;
+	this.tapToStart.visible = false;
+
+};
 
 	MEGAGame.prototype.moveBackground = function(background){
 		if (background.y < -590) {
@@ -154,14 +109,7 @@ MEGAGame.prototype.startGame = function() {
 		this.bg_music.play("", 0, 1, true);
 	}
 
-	MEGAGame.prototype.startGame = function() {
-		this.hasStarted = true;
-		this.logo.visible = false;
-		this.counter.visible = true;
-		this.tapToStart.visible = false;
-		this.tapToStart.blinker.stopBlinking();
-	};
->>>>>>> 7f84e3d54839e87e0a4c6a49b2ed4fc4223d6fa7
+
 		 
 	MEGAGame.prototype.update = function() {
 		//game.debug.spriteInfo(this.Ivis, 20, 32);
