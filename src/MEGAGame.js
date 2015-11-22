@@ -203,7 +203,7 @@ var MEGAGame = (function(){
 			enemio.body.velocity.y = -300;
 		}*/
 
-		this.createEnemyGroup();
+		//this.createEnemyGroup();
 	}
 
 	MEGAGame.prototype.ascend = function(){
