@@ -21,12 +21,16 @@ MEGAGame.prototype.preload = function() {
 
  MEGAGame.prototype.create = function() {
  		this.game.physics.startSystem(Phaser.Physics.P2JS);
- 		this.game.world.setBounds(0, 0, 1600, 1600);
+ 		this.game.world.setBounds(0, 0, 520, 3000);
  		cursors = this.game.input.keyboard.createCursorKeys();
- 		for(var i = 0; i < 3; i++){
- 			/*this.background1 =*/ this.game.add.sprite(0, 600 * i, 'backg');
-			/*this.background2 = */this.game.add.sprite(0, 600 * (i + 1), 'backgINV');	
- 		}
+ 		//for(var i = 0; i < 3; i++){
+ 		this.game.add.sprite(0, 0, 'backg');
+		this.game.add.sprite(0, 600, 'backgINV');
+ 		this.game.add.sprite(0, 1200, 'backg');
+		this.game.add.sprite(0, 1800, 'backgINV');
+ 		this.game.add.sprite(0, 2400, 'backg');
+		this.game.add.sprite(0, 3000, 'backgINV');	
+ 		
  	  	
 		Ivis = this.game.add.sprite(this.game.world.centerX, 100,'Ivis');
 		Ivis.anchor.setTo(0.5, 0.5);
@@ -36,7 +40,7 @@ MEGAGame.prototype.preload = function() {
 		this.game.camera.follow(Ivis);
 	};
  
- MEGAGame.prototype.moveBackground = function(background){
+ /*MEGAGame.prototype.moveBackground = function(background){
 		if (background.y < -590) {
 	       	background.y = 600;
 	        background.y -= 10;
@@ -45,7 +49,7 @@ MEGAGame.prototype.preload = function() {
 	    }
 
 	    //console.log("BG - Y: " + background.y);
-	};
+};*/	
 			 
  MEGAGame.prototype.update = function() {
 		//game.debug.spriteInfo(Ivis, 20, 32);
@@ -77,8 +81,8 @@ MEGAGame.prototype.preload = function() {
 
 		console.log("X: " +  Ivis.x + " Y: " + Ivis.y);
 
-		if(Ivis.y > 1300){
-			Ivis.body.y = 212;
+		if(Ivis.y > 2700){
+			Ivis.body.y = 285;
 		}
 	};
 
