@@ -5,22 +5,27 @@ var MEGAGame = (function(){
 		this.Ivis;
 		this.bg_music;
 		this.hasStarted = false;
+		this.mouseTouchDown = false;
+		this.startScreen = undefined;
 
 	}
- 
-TTTGame.prototype.startGame = function() {
-		this.hasStarted = true;
-		this.logo.visible = false;
-		this.counter.visible = true;
-		this.tapToStart.visible = false;
-		this.tapToStart.blinker.stopBlinking();
+
+ MEGAGame.prototype.touchDown = function() {
+		this.mouseTouchDown = true;
+
+		if (!this.hasStarted) {
+			this.startGame();
+		};
+
 	};
 
 MEGAGame.prototype.preload = function() {		
 		this.game.load.image('backg', 'assets/FONDO.png');
+		this.game.load.image('startScreen', 'assets/startScreen.png');
 		this.game.load.image('backgINV', 'assets/FONDO_INVERTED.png');
 		this.game.load.image('this.Ivis','assets/rollar_new.png');		
     	this.game.load.audio('fall_velocity', 'assets/Falling_Velocity.ogg');
+
 };
 
  MEGAGame.prototype.init = function() {
@@ -31,7 +36,7 @@ MEGAGame.prototype.preload = function() {
 		this.game.scale.refresh();
 };
 
- MEGAGame.prototype.create = function() {
+ MEGAGame.prototype.create = function() {       
 	this.game.physics.startSystem(Phaser.Physics.P2JS);
  	//this.game.world.setBounds(0, 0, 600, 3000);
  	this.bg_music = this.game.add.audio('fall_velocity');
@@ -39,7 +44,12 @@ MEGAGame.prototype.preload = function() {
  	//for(var i = 0; i < 3; i++){
  	this.background1 = this.game.add.sprite(0, 0, 'backg');
  	this.background2 = this.game.add.sprite(0, 600, 'backgINV'); 	
- 	  	
+ 	
+ 	this.startScreen = this.game.add.sprite(0, 0, 'startScreen');
+	//this.startScreen.anchor.setTo(0.5, 0.5);
+	//this.startScreen.x = this.game.world.centerX;
+	//this.startScreen.y = 100;
+
 	this.Ivis = this.game.add.sprite(this.game.world.centerX - 75, 100,'this.Ivis');
 	this.Ivis.anchor.setTo(0.5, 0.5);
 	this.Ivis.scale.setTo(0.05, 0.05);
@@ -64,13 +74,13 @@ function playLevelMusic(){
 	this.bg_music.play("", 0, 1, true);
 }
 
-
-TTTGame.prototype.startGame = function() {
+//Aplicacion para iniciar el juego 
+MEGAGame.prototype.startGame = function() {
 	this.hasStarted = true;
-	this.logo.visible = false;
+	this.startScreen.visible = false;
 	this.counter.visible = true;
 	this.tapToStart.visible = false;
-	this.tapToStart.blinker.stopBlinking();
+
 };
 		 
 MEGAGame.prototype.update = function() {
