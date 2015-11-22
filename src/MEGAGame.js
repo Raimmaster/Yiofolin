@@ -46,7 +46,7 @@ MEGAGame.prototype.preload = function() {
 		this.game.camera.follow(Ivis);
 		
 		bg_music.play("", 0, 1, true);
-		bg_music.onLoop.add(this.playLevelMusic, this);
+		bg_music.onLoop.add(playLevelMusic, this);
 		//bg_music.play();
 };
 
