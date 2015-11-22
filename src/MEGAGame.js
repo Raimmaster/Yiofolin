@@ -5,6 +5,8 @@ var MEGAGame = (function(){
 		this.Ivis;
 		this.bg_music;
 		this.hasStarted = false;
+		this.anim;
+		this.triangle;
 	}
  
  	MEGAGame.prototype.startGame = function() {
@@ -26,7 +28,10 @@ var MEGAGame = (function(){
     	this.game.load.image('Ivis3','assets/triangle/t3.png');
     	this.game.load.image('Ivis4','assets/triangle/t4.png');
     	this.game.load.image('Ivis5','assets/triangle/t5.png');
-    	this.game.load.image('Ivis6','assets/triangle/t6.png');    	
+    	this.game.load.image('Ivis6','assets/triangle/t6.png');  
+
+    	this.game.load.spritesheet('triangle', 'assets/triangle/tri_spritesheet.png',
+    	 200, 200, 5);  	
 	};
 
 	MEGAGame.prototype.init = function() {
@@ -52,7 +57,16 @@ var MEGAGame = (function(){
 		this.game.physics.p2.enable(this.Ivis);
 
 		this.game.camera.follow(this.Ivis);
-			
+
+		this.triangle = this.game.add.sprite(50, 150, 'triangle', 5);
+		this.triangle = this.triangle.scale.setTo(0.15, 0.15);
+		this.triangle.smoothed = false;
+		this.anim = triangle.animations.add('change_color');
+		//this.anim.onStart.add(animationStarted, this);
+		//this.anim.onLoop.add(animationLooped, this);
+		//this.anim.onComplete.add(animationStopped, this);
+		this.anim.play(50;, true);
+
 		this.bg_music.play("", 0, 1, true);
 		this.bg_music.onLoop.add(playLevelMusic, this);
 	};
