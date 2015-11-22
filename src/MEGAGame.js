@@ -14,7 +14,7 @@ var MEGAGame = (function(){
 
 	MEGAGame.prototype.touchDown = function() {
 		this.mouseTouchDown = true;
-
+		
 		if (!this.hasStarted) {
 			this.startGame();			
 			this.timer = this.game.time.create(true);
@@ -59,48 +59,54 @@ var MEGAGame = (function(){
 		this.game.scale.refresh();
 	};
 
-
 	MEGAGame.prototype.create = function() {
-		this.game.physics.startSystem(Phaser.Physics.P2JS);
-	 	//this.game.world.setBounds(0, 0, 600, 3000);
+		//this.game.physics.startSystem(Phaser.Physics.P2JS);
+		this.game.physics.startSystem(Phaser.Physics.ARCADE);
+	 	
 	 	this.bg_music = this.game.add.audio('fall_velocity');
 	 	cursors = this.game.input.keyboard.createCursorKeys();
-	 	//for(var i = 0; i < 3; i++){
+	 	
 	 	this.background1 = this.game.add.sprite(0, 0, 'backg');
 	 	this.background2 = this.game.add.sprite(0, 600, 'backgINV'); 	
 	 	  	
  		this.startScreen = this.game.add.sprite(0, 0, 'startScreen');
-		this.Ivis = this.game.add.sprite(this.game.world.centerX - 75, 100,'Ivis1');
+		this.Ivis = this.game.add.sprite(this.game.world.centerX, 300,'Ivis1');
 		this.Ivis.anchor.setTo(0.5, 0.5);
 		this.Ivis.scale.setTo(0.25, 0.25);
-		this.game.physics.p2.enable(this.Ivis);
-
+		this.game.physics.enable(this.Ivis, Phaser.Physics.ARCADE);
+		this.Ivis.body.collideWorldBounds = true;
 		this.game.camera.follow(this.Ivis);
-
-		/*this.triangle = this.game.add.sprite(50, 150, 'triangle', 5);
-		this.triangle.scale.setTo(0.15, 0.15);
-		this.triangle.smoothed = false;
-		this.anim = this.triangle.animations.add('change_color');
-		//this.anim.onStart.add(animationStarted, this);
-		//this.anim.onLoop.add(animationLooped, this);
-		//this.anim.onComplete.add(animationStopped, this);
-		this.anim.play(50, true);*/
 
 		this.bg_music.play("", 0, 1, true);
 		this.bg_music.onLoop.add(playLevelMusic, this);
 
 		this.anim_actual = 0;
+		//this.game.world.body.checkCollision.up = false;
+
+		/***/
+		this.cuadrados1 = this.game.add.group();
+		this.cuadrados1.enableBody = true;
+		this.cuadrados1.physicsBodyType = Phaser.Physics.ARCADE;
+
+		this.cuadrados1.createMultiple(5, "Enemy1");
+		this.cuadrados1.setAll('anchor.x', 0.5);
+		this.cuadrados1.setAll('anchor.x', 1);
+		this.cuadrados1.setAll('outOfBoundsKill', true);
+		this.cuadrados1.setAll('checkWorldBounds', true);
+		/***/
+		this.enemies = this.game.add.group();
+		this.enemies.enableBody = true;
+		this.enemies.physicsBodyType = Phaser.Physics.ARCADE;
+		//this.Ivis.body.angularAcceleration = 0;		
 	};
 
-
-//Aplicacion para iniciar el juego 
-MEGAGame.prototype.startGame = function() {
-	this.hasStarted = true;
-	this.startScreen.visible = false;
-	//this.counter.visible = true;
-	
-
-};
+	//Aplicacion para iniciar el juego 
+	MEGAGame.prototype.startGame = function() {
+		this.hasStarted = true;
+		this.startScreen.visible = false;
+		
+		//this.counter.visible = true;
+	};
 
 	MEGAGame.prototype.moveBackground = function(background){
 		if (background.y < -590) {
@@ -149,14 +155,47 @@ MEGAGame.prototype.startGame = function() {
 			}
 		}
 
-		for(var i = 0; i < (Math.floor(Math.random() * 10) + 1); i++){
-			this.enem = this.game.add.sprite(i + Math.random() * 400,  590, 'Enemy2');	
-			this.enem.anchor.setTo(0.5, 0.5);
-			this.enem.scale.setTo(0.1, 0.1);
-			this.game.physics.p2.enable(this.enem);			
-			this.enem.body.thrust(50000);
+		//creating enemies, option 1
+		// for(var i = 0; i < (Math.floor(Math.random() * 10) + 1); i++){
+		// 	this.enem = this.game.add.sprite(this.game.world.randomX,  
+		// 		590, 'Enemy2');	
+		// 	this.enem.anchor.setTo(0.5, 0.5);
+		// 	this.enem.scale.setTo(0.1, 0.1);
+		// 	this.game.physics.enable(this.enem, Phaser.Physics.ARCADE);		
+		// 	this.enem.body.collideWorldBounds = false;	
+		// 	this.enem.body.velocity.y = -(500);
+		// }
+
+		//creating enemies, option 2		
+		//spawnear enemigos
+		enemio = this.cuadrados1.getFirstExists(false);
+
+		if(this.hasStarted && enemio){
+			enemio.reset(this.game.world.randomX, 590);
+			enemio.scale.setTo(0.15, 0.15);
+			enemio.body.velocity.y = -300;
 		}
 	}
+
+	MEGAGame.prototype.ascend = function(){
+		this.enemies.y -= 10;
+	}
+
+	// MEGAGame.prototype.createEnemies = function(){
+	// 	for(var i = 0; i < 4; i++){
+	// 		var enemigo = this.enemies.create(i * 20, 590, 'Enemy3');
+	// 		enemigo.anchor.setTo(0.5, 0.5);
+	// 		enemigo.body.moves = false;
+	// 	}
+
+	// 	this.enemies.x = 200;
+	// 	this.enemies.y = 590;
+
+	// 	var tween = this.game.add.tween(this.enemies).to( { x: 100 }, 0, 
+	// 		Phaser.Easing.Linear.None, true, 0, 1000, true);
+
+	// 	tween.onLoop.add(this.ascend, this);
+	// }
 
 	MEGAGame.prototype.touchUp = function() {
 		this.mouseTouchDown = false;
@@ -166,7 +205,6 @@ MEGAGame.prototype.startGame = function() {
 		//game.debug.spriteInfo(this.Ivis, 20, 32);
 		// this.Ivis.y++;
 	  	//this.Ivis.body.reverse(150);
-		this.counter++;
  		this.moveBackground(this.background1);
   		this.moveBackground(this.background2);
 
@@ -182,30 +220,35 @@ MEGAGame.prototype.startGame = function() {
 
 	  	if (cursors.left.isDown)
 	  	{
-	  		this.Ivis.body.rotateRight(50);	  		
+	  		this.Ivis.body.velocity.x = -150;;	  		
 	  	}   //ship movement
 	    else if (cursors.right.isDown)
 	    {	
-	    	this.Ivis.body.rotateLeft(50);	    	
+	    	this.Ivis.body.velocity.x = 150;;	    	
 	    }
-	    else 
+	    /*else 
 	    {
 	    	this.Ivis.body.setZeroRotation();
-	    }
+	    }*/
 	    
 	    if (cursors.down.isDown)
 		{
-			this.Ivis.body.reverse(150);
+			this.Ivis.body.velocity.y = 150;
 		}else if (cursors.up.isDown)
 		{
-			this.Ivis.body.thrust(150);
-		}
+			this.Ivis.body.velocity.y = -150;
+		}	
 
-
-		//spawnear enemigos
+		this.game.physics.arcade.overlap(this.cuadrados1, this.Ivis, 
+			this.collisionHandler, null, this);
 		
 		//console.log("X: " +  this.Ivis.x + " Y: " + this.Ivis.y);		
 	};
+
+	MEGAGame.prototype.collisionHandler = function (cuadrado, player) {
+		cuadrado.kill();
+		player.kill();
+	}
 
 	MEGAGame.prototype.render = function() {
 
