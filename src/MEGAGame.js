@@ -5,8 +5,11 @@ var MEGAGame = (function(){
 		this.Ivis;
 		this.bg_music;
 		this.hasStarted = false;
+		this.hasPaused = false;
 		this.mouseTouchDown = false;
 		this.startScreen = undefined;
+		this.pauseScreen = undefined;
+		this.score = 0;
 
 		this.anim;
 		this.triangle;
@@ -20,7 +23,7 @@ var MEGAGame = (function(){
 			this.timer = this.game.time.create(true);
 		    this.timer.loop(7000, this.changePlayerColor, this);
 		    this.timer.start();
-		};
+		}
 	}
  
 
@@ -104,8 +107,14 @@ var MEGAGame = (function(){
 	MEGAGame.prototype.startGame = function() {
 		this.hasStarted = true;
 		this.startScreen.visible = false;
+		this.score = 0;
 		
 		//this.counter.visible = true;
+	};
+
+	MEGAGame.prototype.pauseGame = function() {
+		this.hasPaused = true;
+		this.pauseScreen.visible = true;
 	};
 
 	MEGAGame.prototype.moveBackground = function(background){
@@ -248,6 +257,11 @@ var MEGAGame = (function(){
 	MEGAGame.prototype.collisionHandler = function (cuadrado, player) {
 		cuadrado.kill();
 		player.kill();
+
+		this.pauseGame();
+		// this.create();
+		// this.hasStarted = false;
+		// this.startScreen.visible = true;
 	}
 
 	MEGAGame.prototype.render = function() {
