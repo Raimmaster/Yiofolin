@@ -61,7 +61,8 @@ function playLevelMusic(){
 		// Ivis.y++;
 	 	//this.moveBackground(this.background1);
 	  	//this.moveBackground(this.background2);
-
+	  	Ivis.body.reverse(600);
+		
 	  	console.log("angle: " + Ivis.body.angle)
 	  	if (cursors.left.isDown)
 	  	{
