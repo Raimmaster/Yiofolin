@@ -91,7 +91,7 @@ var MEGAGame = (function(){
 		this.cuadrados1.enableBody = true;
 		this.cuadrados1.physicsBodyType = Phaser.Physics.ARCADE;
 
-		this.cuadrados1.createMultiple(5, "Enemy1");
+		this.cuadrados1.createMultiple(5, "Enemy" + (Math.floor(Math.random() * 6 + 1)));
 		this.cuadrados1.setAll('anchor.x', 0.5);
 		this.cuadrados1.setAll('anchor.x', 1);
 		this.cuadrados1.setAll('outOfBoundsKill', true);
@@ -190,30 +190,11 @@ var MEGAGame = (function(){
 		this.enemies.y -= 10;
 	}
 
-	// MEGAGame.prototype.createEnemies = function(){
-	// 	for(var i = 0; i < 4; i++){
-	// 		var enemigo = this.enemies.create(i * 20, 590, 'Enemy3');
-	// 		enemigo.anchor.setTo(0.5, 0.5);
-	// 		enemigo.body.moves = false;
-	// 	}
-
-	// 	this.enemies.x = 200;
-	// 	this.enemies.y = 590;
-
-	// 	var tween = this.game.add.tween(this.enemies).to( { x: 100 }, 0, 
-	// 		Phaser.Easing.Linear.None, true, 0, 1000, true);
-
-	// 	tween.onLoop.add(this.ascend, this);
-	// }
-
 	MEGAGame.prototype.touchUp = function() {
 		this.mouseTouchDown = false;
 	};
 		 
-	MEGAGame.prototype.update = function() {
-		//game.debug.spriteInfo(this.Ivis, 20, 32);
-		// this.Ivis.y++;
-	  	//this.Ivis.body.reverse(150);
+	MEGAGame.prototype.update = function() {		
  		this.moveBackground(this.background1);
   		this.moveBackground(this.background2);
 
@@ -235,10 +216,6 @@ var MEGAGame = (function(){
 	    {	
 	    	this.Ivis.body.velocity.x = 150;;	    	
 	    }
-	    /*else 
-	    {
-	    	this.Ivis.body.setZeroRotation();
-	    }*/
 	    
 	    if (cursors.down.isDown)
 		{
@@ -246,13 +223,30 @@ var MEGAGame = (function(){
 		}else if (cursors.up.isDown)
 		{
 			this.Ivis.body.velocity.y = -150;
+		}
+
+		enemio = this.cuadrados1.getFirstExists(false);
+
+		if(this.hasStarted && enemio){
+			enemio.reset(this.game.world.randomX, 590);
+			enemio.scale.setTo(0.15, 0.15);
+			enemio.body.velocity.y = -300;
 		}	
 
 		this.game.physics.arcade.overlap(this.cuadrados1, this.Ivis, 
 			this.collisionHandler, null, this);
+
+		for (var i = 0; i < this.enemies.children.length; i++) {
+			if(this.enemies.children[i].y < 0)
+				resetBullet(this.enemies.children[i]);
+		}
 		
 		//console.log("X: " +  this.Ivis.x + " Y: " + this.Ivis.y);		
 	};
+
+	MEGAGame.prototype.resetBullet = function(il_enem){
+		il_enem.kill();
+	}
 
 	MEGAGame.prototype.collisionHandler = function (cuadrado, player) {
 		cuadrado.kill();
@@ -265,10 +259,8 @@ var MEGAGame = (function(){
 	}
 
 	MEGAGame.prototype.render = function() {
-
 	    game.debug.cameraInfo(game.camera, 32, 32);
 	    game.debug.spriteCoords(player, 32, 500);
-
 	};
 
 	return MEGAGame;
