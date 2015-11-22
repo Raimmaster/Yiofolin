@@ -33,6 +33,10 @@ var MEGAGame = (function(){
 		    this.timer_enemy.start(); 
 		}else if(this.hasPaused){
 			this.create();
+			this.cuadrados1 = this.game.add.group();
+			this.cuadrados1.enableBody = true;
+			this.cuadrados1.physicsBodyType = Phaser.Physics.ARCADE;
+
 			this.startGame();
 			this.hasPaused=false;
 			this.pauseScreen.visible=false;
@@ -101,7 +105,6 @@ var MEGAGame = (function(){
 		//this.game.physics.startSystem(Phaser.Physics.P2JS);
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 	 	
-	 	this.bg_music = this.game.add.audio('fall_velocity');
 	 	cursors = this.game.input.keyboard.createCursorKeys();
 	 	
 	 	this.background1 = this.game.add.sprite(0, 0, 'backg');
@@ -120,8 +123,12 @@ var MEGAGame = (function(){
 		this.Ivis.body.collideWorldBounds = true;
 		this.game.camera.follow(this.Ivis);
 
-		this.bg_music.play("", 0, 1, true);
-		this.bg_music.onLoop.add(playLevelMusic, this);
+		if(!this.hasPaused)
+		{
+		 	this.bg_music = this.game.add.audio('fall_velocity');
+			this.bg_music.play("", 0, 1, true);
+			this.bg_music.onLoop.add(playLevelMusic, this);
+		}
 
 		this.anim_actual = 0;
 		//this.game.world.body.checkCollision.up = false;
