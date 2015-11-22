@@ -5,10 +5,9 @@ var MEGAGame = (function(){
 		this.Ivis;
 		this.bg_music;
 		this.hasStarted = false;
-
 	}
  
-TTTGame.prototype.startGame = function() {
+ 	MEGAGame.prototype.startGame = function() {
 		this.hasStarted = true;
 		this.logo.visible = false;
 		this.counter.visible = true;
@@ -16,64 +15,69 @@ TTTGame.prototype.startGame = function() {
 		this.tapToStart.blinker.stopBlinking();
 	};
 
-MEGAGame.prototype.preload = function() {		
+	MEGAGame.prototype.preload = function() {		
 		this.game.load.image('backg', 'assets/FONDO.png');
 		this.game.load.image('backgINV', 'assets/FONDO_INVERTED.png');
-		this.game.load.image('this.Ivis','assets/rollar_new.png');		
+		//this.game.load.image('Ivis','assets/rollar_new.png');		
     	this.game.load.audio('fall_velocity', 'assets/Falling_Velocity.ogg');
-};
+    	//TRIANGLES
+    	this.game.load.image('Ivis1','assets/triangle/t1.png');
+    	this.game.load.image('Ivis2','assets/triangle/t2.png');
+    	this.game.load.image('Ivis3','assets/triangle/t3.png');
+    	this.game.load.image('Ivis4','assets/triangle/t4.png');
+    	this.game.load.image('Ivis5','assets/triangle/t5.png');
+    	this.game.load.image('Ivis6','assets/triangle/t6.png');    	
+	};
 
- MEGAGame.prototype.init = function() {
+	MEGAGame.prototype.init = function() {
 		this.game.stage.backgroundColor = '#9bt3e1';
 		this.game.add.plugin(Phaser.Plugin.Debug);
 		this.game.scale.pageAlignHorizontally = true;
 		this.game.scale.pageAlignVertically = true;
 		this.game.scale.refresh();
-};
+	};
 
- MEGAGame.prototype.create = function() {
-	this.game.physics.startSystem(Phaser.Physics.P2JS);
- 	//this.game.world.setBounds(0, 0, 600, 3000);
- 	this.bg_music = this.game.add.audio('fall_velocity');
- 	cursors = this.game.input.keyboard.createCursorKeys();
- 	//for(var i = 0; i < 3; i++){
- 	this.background1 = this.game.add.sprite(0, 0, 'backg');
- 	this.background2 = this.game.add.sprite(0, 600, 'backgINV'); 	
- 	  	
-	this.Ivis = this.game.add.sprite(this.game.world.centerX - 75, 100,'this.Ivis');
-	this.Ivis.anchor.setTo(0.5, 0.5);
-	this.Ivis.scale.setTo(0.05, 0.05);
-	this.game.physics.p2.enable(this.Ivis);
+	MEGAGame.prototype.create = function() {
+		this.game.physics.startSystem(Phaser.Physics.P2JS);
+	 	//this.game.world.setBounds(0, 0, 600, 3000);
+	 	this.bg_music = this.game.add.audio('fall_velocity');
+	 	cursors = this.game.input.keyboard.createCursorKeys();
+	 	//for(var i = 0; i < 3; i++){
+	 	this.background1 = this.game.add.sprite(0, 0, 'backg');
+	 	this.background2 = this.game.add.sprite(0, 600, 'backgINV'); 	
+	 	  	
+		this.Ivis = this.game.add.sprite(this.game.world.centerX - 75, 100,'Ivis1');
+		this.Ivis.anchor.setTo(0.5, 0.5);
+		this.Ivis.scale.setTo(0.15, 0.15);
+		this.game.physics.p2.enable(this.Ivis);
 
-	this.game.camera.follow(this.Ivis);
-		
-	this.bg_music.play("", 0, 1, true);
-	this.bg_music.onLoop.add(playLevelMusic, this);
-	//this.bg_music.play();
-};
+		this.game.camera.follow(this.Ivis);
+			
+		this.bg_music.play("", 0, 1, true);
+		this.bg_music.onLoop.add(playLevelMusic, this);
+	};
 
-MEGAGame.prototype.moveBackground = function(background){
-	if (background.y < -590) {
-		background.y = 600;
-		background.y -= 15;
-	}else
-		background.y -= 15;			    
-};
+	MEGAGame.prototype.moveBackground = function(background){
+		if (background.y < -590) {
+			background.y = 600;
+			background.y -= 20;
+		}else
+			background.y -= 20;			    
+	};
 
-function playLevelMusic(){
-	this.bg_music.play("", 0, 1, true);
-}
+	function playLevelMusic(){
+		this.bg_music.play("", 0, 1, true);
+	}
 
-
-TTTGame.prototype.startGame = function() {
-	this.hasStarted = true;
-	this.logo.visible = false;
-	this.counter.visible = true;
-	this.tapToStart.visible = false;
-	this.tapToStart.blinker.stopBlinking();
-};
+	MEGAGame.prototype.startGame = function() {
+		this.hasStarted = true;
+		this.logo.visible = false;
+		this.counter.visible = true;
+		this.tapToStart.visible = false;
+		this.tapToStart.blinker.stopBlinking();
+	};
 		 
-MEGAGame.prototype.update = function() {
+	MEGAGame.prototype.update = function() {
 		//game.debug.spriteInfo(this.Ivis, 20, 32);
 		// this.Ivis.y++;
 	  	//this.Ivis.body.reverse(150);
@@ -84,21 +88,21 @@ MEGAGame.prototype.update = function() {
 	  	console.log("angle: " + this.Ivis.body.angle)
 	  	if (cursors.left.isDown)
 	  	{
-	  		if(this.Ivis.body.angle<30)
-	  		{
+	  		//if(this.Ivis.body.angle<30)
+	  		//{
 	    		this.Ivis.body.rotateRight(50);
-	  		}else{
-	  			this.Ivis.body.angle = 30;
-	  		}
+	  		//}else{
+	  		//	this.Ivis.body.angle = 30;
+	  		//}
 	  	}   //ship movement
 	    else if (cursors.right.isDown)
 	    {	
-	    	if(this.Ivis.body.angle>-30)
-	    	{
+	    	//if(this.Ivis.body.angle>-30)
+	    	//{
 	  			this.Ivis.body.rotateLeft(50);
-	    	}else{
-	    		this.Ivis.body.angle = -30;
-	    	}
+	    	//}else{
+	    	//	this.Ivis.body.angle = -30;
+	    	//}
 	    }
 	    else 
 	    {
@@ -111,6 +115,16 @@ MEGAGame.prototype.update = function() {
 		}else if (cursors.up.isDown)
 		{
 			this.Ivis.body.thrust(150);
+		}
+
+		//change colors
+		if(this.game.input.keyboard.isDown(Phaser.Keyboard.W)){
+			this.Ivis = this.game.add.sprite(this.Ivis.x, this.Ivis.y,'Ivis2');	
+			this.Ivis.anchor.setTo(0.5, 0.5);
+			this.Ivis.scale.setTo(0.15, 0.15);
+			this.game.physics.p2.enable(this.Ivis);	
+		}else if(this.game.input.keyboard.isDown(Phaser.Keyboard.S)){			
+			this.Ivis = this.game.add.sprite(this.Ivis.x, this.Ivis.y,'Ivis3');
 		}
 
 		console.log("X: " +  this.Ivis.x + " Y: " + this.Ivis.y);		
