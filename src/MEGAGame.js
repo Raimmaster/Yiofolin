@@ -57,13 +57,25 @@ MEGAGame.prototype.preload = function() {
 	 	//this.moveBackground(this.background1);
 	  	//this.moveBackground(this.background2);
 
+	  	console.log("angle: " + Ivis.body.angle)
 	  	if (cursors.left.isDown)
 	  	{
-	  		Ivis.body.rotateLeft(100);	  		
+	  		if(Ivis.body.angle>-30)
+	  		{
+	    		Ivis.body.rotateRight(100);
+	  		}else{
+	  			Ivis.body.angle=-30;
+	  		}
 	  	}   //ship movement
 	    else if (cursors.right.isDown)
 	    {	
-	    	Ivis.body.rotateRight(100);
+	    	if(Ivis.body.angle<30)
+	    	{
+	  			Ivis.body.rotateLeft(100);
+	    	}else{
+	    		Ivis.body.angle=30;
+	    	}
+	    	// Ivis.body.moveRight(100);
 	    }
 	    else 
 	    {
