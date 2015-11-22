@@ -65,7 +65,7 @@ var MEGAGame = (function(){
 		//this.anim.onStart.add(animationStarted, this);
 		//this.anim.onLoop.add(animationLooped, this);
 		//this.anim.onComplete.add(animationStopped, this);
-		this.anim.play(50;, true);
+		this.anim.play(50, true);
 
 		this.bg_music.play("", 0, 1, true);
 		this.bg_music.onLoop.add(playLevelMusic, this);
