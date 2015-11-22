@@ -148,7 +148,7 @@ var MEGAGame = (function(){
 
 		this.btmText = this.game.add.bitmapText(10, 5, 'carrier_command','score: 0',34);
 		this.btmText.visible = false;
-		this.backOver = this.game.add.sprite(0,0,'backgOver');
+		this.backgOver1 = this.game.add.sprite(0,0,'backgOver');
 	};
 
 	MEGAGame.prototype.createEnemyGroup = function(){
@@ -248,7 +248,7 @@ var MEGAGame = (function(){
  		this.moveBackground(this.background1);
   		this.moveBackground(this.background2);
 
-  		if (this.game.input.activePointer.isDown) {
+  		if (this.game.input.activePointer.isDown || this.game.input.keyboard.isDown(Phaser.Keyboard.ENTER)) {
 			if (!this.mouseTouchDown)
 				this.touchDown();
 		} else {
